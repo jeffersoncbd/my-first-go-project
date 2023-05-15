@@ -1,0 +1,42 @@
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.new-button {
+    background-color: #21262d;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #5b5e61;
+    align-self: flex-end;
+}
+.new-button:hover {
+    background-color: #313842;
+    border-color: #e6edf3;
+}
+
+ul {
+    flex: 1;
+    height: auto;
+    list-style-type: none;
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+li {
+    background-color: #21262d;
+    border-radius: 8px;
+    padding: 8px;
+}
+li:hover {
+    background-color: #313842;
+}
+ul a {
+    text-decoration: none;
+    display: block;
+}
+a + a {
+    margin-top: 8px;
+}
