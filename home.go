@@ -8,7 +8,8 @@ import (
 )
 
 func HandleHome(w http.ResponseWriter, r *http.Request) {
-	html := Structure("Home", "home", []string{"home"})
+	home, _ := Structures.ReadFile("structures/home.html")
+	html := Structure("Home", []string{"home"}, home)
 
 	content, _ := os.ReadFile("titles.yml")
 	lines := strings.Split(string(content), "\n")

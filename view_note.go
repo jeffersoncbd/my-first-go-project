@@ -10,7 +10,8 @@ func HandleViewNote(w http.ResponseWriter, r *http.Request) {
 	file_name := r.URL.Path[7:]
 	note, _ := LoadNote(file_name)
 
-	html := Structure(note.Title, "view", []string{"view"})
+	view, _ := Structures.ReadFile("structures/view.html")
+	html := Structure(note.Title, []string{"view"}, view)
 
 	html = strings.Replace(html, "{{title}}", note.Title, 2)
 	html = strings.Replace(html, "{{content}}", string(note.Body), 1)

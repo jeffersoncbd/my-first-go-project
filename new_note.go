@@ -7,7 +7,8 @@ import (
 )
 
 func HandleNewNoteForm(w http.ResponseWriter, r *http.Request) {
-	html := Structure("New", "form", []string{"form"})
+	form, _ := Structures.ReadFile("structures/form.html")
+	html := Structure("New", []string{"form"}, form)
 
 	html = strings.Replace(html, "{{operation}}", "New", 1)
 	html = strings.Replace(html, "{{action}}", "/save", 1)

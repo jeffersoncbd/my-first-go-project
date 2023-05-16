@@ -7,7 +7,8 @@ import (
 )
 
 func HandleEditNoteForm(w http.ResponseWriter, r *http.Request) {
-	html := Structure("Edit", "form", []string{"form"})
+	form, _ := Structures.ReadFile("structures/form.html")
+	html := Structure("Edit", []string{"form"}, form)
 
 	file_name := r.URL.Path[6:]
 	note, _ := LoadNote(file_name)

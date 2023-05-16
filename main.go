@@ -1,19 +1,32 @@
 package main
 
 import (
+	"embed"
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 
 	"os"
 )
 
+//go:embed static/*
+var statics embed.FS
+
 func main() {
 	if _, err := os.Stat("titles.yml"); err != nil {
+		println("creating \"titles.yml\" file...")
 		os.WriteFile("titles.yml", []byte(""), 0644)
 	}
+	if _, err := os.Stat("notes"); err != nil {
+		println("creating \"notes\" folder...")
+		os.Mkdir("notes", 0760)
+	}
 
-	fs := http.FileServer(http.Dir("./static"))
+	var staticFS = fs.FS(statics)
+	contents, _ := fs.Sub(staticFS, "static")
+	fs := http.FileServer(http.FS(contents))
+
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	http.HandleFunc("/css/", HandleCss)
@@ -30,6 +43,7 @@ func main() {
 
 	http.HandleFunc("/", HandleHome)
 
+	println("server started at :8080 port!")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
